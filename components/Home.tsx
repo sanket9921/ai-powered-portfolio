@@ -827,7 +827,7 @@ export default function Home() {
                     <motion.div
                       key={idx}
                       onClick={() => setCurrent(idx)}
-                      className={`flex-shrink-0 w-40 border rounded-xl overflow-hidden shadow-sm p-3 text-center transition-all hover:shadow-md ${idx === current
+                      className={`flex-shrink-0 w-40 border rounded-xl overflow-hidden shadow-sm p-3 text-center transition-all ${idx === current
                         ? 'border-orange-500'
                         : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100'
                         }`}
