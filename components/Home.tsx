@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import AboutMeCard from './AboutMeCard';
-import { FaBriefcase, FaChartLine, FaGithub, FaLinkedin, FaPlay, FaRegSmile, FaSmile, FaSmileBeam, FaTwitter } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaBriefcase, FaChartLine, FaGithub, FaLinkedin, FaPlay, FaRegSmile, FaSmile, FaSmileBeam, FaTwitter } from 'react-icons/fa';
 import { FaReact, FaNodeJs, FaGitAlt } from 'react-icons/fa';
 import { SiTailwindcss, SiPostgresql, SiMongodb } from 'react-icons/si';
 import { FaEnvelope } from 'react-icons/fa';
@@ -11,13 +11,60 @@ import { Typewriter } from 'react-simple-typewriter';
 
 import { FaBandage } from 'react-icons/fa6';
 import HeroBackground from './HeroBackground';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
+const sections = ['hero', 'about', `experience`, 'skills', 'projects', 'testimonials', 'contact'];
+
+const testimonials = [
+  {
+    name: 'Jim Corner',
+    role: 'CEO, Victionary Co.',
+    quote:
+      'I would like to say a big Thank you for your immense effort and support. I have a feeling our future events are going to be great as well. Good luck to the team.',
+    avatar: 'sanket_photo.png',
+  },
+  {
+    name: 'Priya Verma',
+    role: 'Product Manager',
+    quote:
+      'Reliable, fast, and thoughtful. Sanket really understood what we needed and turned it into a beautiful frontend experience.',
+    avatar: 'sanket_photo.png',
+  },
+  {
+    name: 'Amit Sharma',
+    role: 'Founder, StartupX',
+    quote:
+      'Working with Sanket was seamless — he delivered a high-quality full-stack app ahead of schedule. Highly recommend!',
+    avatar: 'sanket_photo.png',
+  },
+  {
+    name: 'Sara Lee',
+    role: 'Tech Recruiter',
+    quote:
+      'Sanket’s attention to detail and ability to deliver on time stood out. The UI and performance were excellent.',
+    avatar: 'sanket_photo.png',
+  },
+  {
+    name: 'Rahul Kulkarni',
+    role: 'Design Lead',
+    quote:
+      'One of the best freelancers I’ve collaborated with. His UI decisions are always on point.',
+    avatar: 'sanket_photo.png',
+  },
+];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [openSection, setOpenSection] = useState<string | null>(null);
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+  const [current, setCurrent] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [charIndex, setCharIndex] = useState(0);
+
+  const total = testimonials.length;
+
+  const currentTestimonial = testimonials[current];
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,6 +117,72 @@ export default function Home() {
     hidden: { opacity: 0, x: 40 },
     visible: { opacity: 1, x: 0 },
   };
+
+  const projects = [
+    {
+      title: 'AI Portfolio',
+      description: 'Interactive portfolio powered by AI and Next.js.',
+      tech: 'Next.js, Tailwind, OpenAI',
+      link: '#',
+    },
+    {
+      title: 'Job Portal',
+      description: 'Campus placement platform with full role-based access.',
+      tech: 'MERN, PostgreSQL, JWT',
+      link: '#',
+    },
+    {
+      title: 'Career Guidance',
+      description: 'App to help school students discover ideal.',
+      tech: 'Flask, React, APScheduler',
+      link: '#',
+    },
+  ];
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -400 : 400,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const experiences = [
+    {
+      year: '2024',
+      title: 'AI-Powered Portfolio Developer',
+      description:
+        'Built an interactive portfolio with dynamic component rendering, AI assistant integration, and responsive design using React, Tailwind, and Framer Motion.',
+    },
+    {
+      year: '2023',
+      title: 'Full-Stack Freelancer',
+      description:
+        'Developed and delivered full-stack web apps for startups and solo founders. Specialized in frontend UX, backend APIs, and project architecture.',
+    },
+    {
+      year: '2022',
+      title: 'Frontend Specialist (React / Next.js)',
+      description:
+        'Crafted accessible and high-performance UIs using React, Tailwind CSS, and Next.js for various freelance clients.',
+    },
+    {
+      year: '2021',
+      title: 'Freelance Web Developer',
+      description:
+        'Started my freelance journey, building static sites, admin panels, and landing pages using modern HTML/CSS/JS stacks.',
+    },
+  ];
+
+
+
+
+  const next = () => setCurrent((prev) => (prev + 1) % total);
+  const prev = () => setCurrent((prev) => (prev - 1 + total) % total);
+
 
   return (
     <div className="relative h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
@@ -305,7 +418,7 @@ export default function Home() {
       {/* ✅ About Preview */}
       <section
         id="about"
-        className="snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16 gap-25"
+        className="snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16 gap-25"
       >
         {/* Left - Image Section */}
         <motion.div
@@ -411,10 +524,57 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ✅ Experience Preview */}
+      <section
+        id="experience"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
+      >
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+          {/* Left Side: Timeline (Original Version) */}
+          <div className="relative border-l-2 border-orange-500 dark:border-orange-400 pl-6 space-y-12">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="absolute -left-3 top-1.5 w-4 h-4 rounded-full bg-orange-500 dark:bg-orange-400 border-2 border-white dark:border-black shadow-md" />
+                <div className="ml-2">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {exp.year}
+                  </span>
+                  <h3 className="text-xl font-semibold text-orange-600 dark:text-orange-300">
+                    {exp.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-2 max-w-xl leading-relaxed">
+                    {exp.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Right Side: Title + Description */}
+          <div className="flex flex-col justify-center">
+            <h2 className="text-3xl sm:text-6xl font-bold mb-6 leading-tight">
+              From <span className="text-[color:var(--color-primary)]">Freelancer</span> to{' '}
+              <span className="text-[color:var(--color-primary)]">Full-Stack Builder</span>
+            </h2>
+
+            <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+              In the past 3+ years, I’ve helped founders, startups, and teams build performant, scalable web products — all while crafting clean, modern UIs backed by real-world experience.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ✅ Skills Preview */}
       <section
         id="skills"
-        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white px-6 py-16"
       >
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left - Headline */}
@@ -425,7 +585,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-extrabold leading-tight drop-shadow-md uppercase tracking-tight text-gray-900 dark:text-white">
+            <h2 className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-extrabold leading-tight uppercase tracking-tight text-gray-900 dark:text-white">
               Technologies <span className="text-[var(--color-primary)] dark:text-[var(--color-primary)]">That Power</span> My Creative <span className="text-[var(--color-primary)] dark:text-[var(--color-primary)]">Code</span>
             </h2>
           </motion.div>
@@ -445,22 +605,23 @@ export default function Home() {
                 key={idx}
                 variants={item}
                 transition={{ duration: 0.6 }}
-                className="flex items-center rounded-lg px-6 py-5 shadow-md bg-white dark:bg-gray-800 text-lg font-medium"
+                className="flex items-center rounded-lg px-6 py-5 shadow-md bg-white dark:bg-gray-800 text-lg font-medium 
+                     hover:bg-[var(--color-primary)] hover:text-white transition-colors duration-300 group"
               >
                 {/* Skill Level - 3/12 */}
                 <div className="w-3/12 p-4 flex justify-end text-right text-6xl md:text-3xl font-semibold">
-                  <span className="font-bold text-4xl text-black dark:text-white">
+                  <span className="font-bold text-4xl text-black dark:text-white group-hover:text-white">
                     {skill.level}
                   </span>
-                  <span className='text-sm mt-4'>/10</span>
+                  <span className="text-sm mt-4 group-hover:text-white">/10</span>
                 </div>
 
                 {/* Vertical Divider */}
-                <div className="w-px h-20 bg-gray-300 dark:bg-gray-600" />
+                <div className="w-px h-20 bg-gray-300 dark:bg-gray-600 group-hover:bg-white" />
                 <div className="w-4/12" />
 
                 {/* Skill Label - 9/12 */}
-                <div className="w-5/12 pl-4 py-4 flex justify-end text-right text-2xl md:text-3xl font-semibold text-black dark:text-white">
+                <div className="w-5/12 pl-4 py-4 flex justify-end text-right text-2xl md:text-3xl font-semibold text-black dark:text-white group-hover:text-white">
                   {skill.label}
                 </div>
               </motion.div>
@@ -473,92 +634,336 @@ export default function Home() {
       {/* ✅ Projects Preview */}
       <section
         id="projects"
-        className="snap-start min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
       >
-        <motion.div
-          className="max-w-6xl w-full text-center"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
+          className="relative px-6 py-16 overflow-hidden"
         >
-          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">
-            Projects
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            Some of the real-world problems I’ve solved through code.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-            <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">Mock Test Platform</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">AI-enabled test system for campus prep.</p>
+          {/* Scroll Arrows with Horizontal Line */}
+          <div className="absolute top-5 left-50  z-10 flex items-center justify-center px-6">
+            {/* Arrow Buttons */}
+            <div className="relative z-10 flex gap-3 px-4">
+              <button
+                onClick={() => scroll('left')}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
+              >
+                <FiChevronLeft size={20} />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
+              >
+                <FiChevronRight size={20} />
+              </button>
             </div>
-            <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">Job Portal (TPO)</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Multi-role job portal for colleges & companies.</p>
-            </div>
+            <hr />
           </div>
 
-          <button
-            className="px-6 py-2 border border-indigo-500 text-indigo-500 rounded-lg hover:bg-indigo-500 hover:text-white transition"
+
+          {/* Scrollable Row */}
+          <div
+            ref={scrollRef}
+            className="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide"
           >
-            Know More
-          </button>
-        </motion.div>
+            <div className="inline-flex items-stretch gap-8 px-10 ml-50 snap-x snap-mandatory">
+              {/* Fancy Header Block */}
+              <motion.div
+                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 snap-center  p-6 flex flex-col  overflow-hidden"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold uppercase tracking-tight leading-tight text-balance">
+                  <span className="text-[var(--color-primary)]">Creative</span>
+                  <span className="text-black dark:text-white"> Thinking </span><span className='text-[var(--color-primary)]'>Meets</span><span> Functional</span> <span className='text-[var(--color-primary)]'> Development</span>
+                </h2>
+
+
+                <p className="mt-4 text-base text-gray-600 dark:text-gray-400 break-words whitespace-normal overflow-hidden text-ellipsis">
+                  Each project is a real-world solution — blending design, performance and innovation.
+                </p>
+              </motion.div>
+
+              {/* Project Cards */}
+              {projects.map((project, idx) => (
+                <motion.div
+                  key={idx}
+                  className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700  shadow-lg p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="overflow-hidden">
+                    <h3 className="text-2xl font-bold text-orange-500 dark:text-orange-400 mb-2 break-words whitespace-normal">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 break-words whitespace-normal overflow-hidden">
+                      {project.description}
+                    </p>
+                    <span className="text-xs px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 rounded-full break-words whitespace-normal inline-block max-w-full overflow-hidden text-ellipsis">
+                      {project.tech}
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <a
+                      href={project.link}
+                      className="inline-block px-4 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition"
+                    >
+                      View Project
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* See More Button */}
+              <motion.div
+                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-[var(--color-primary)] text-white flex items-center justify-center shadow-lg p-6 snap-center font-bold text-xl hover:scale-105 transition-transform duration-300 overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 * projects.length }}
+                viewport={{ once: true }}
+              >
+                <button className="hover:scale-110 transition-transform whitespace-nowrap">
+                  See More Projects →
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* ✅ Contact Preview */}
+      {/* ✅ Testimonials Preview */}
+      <section
+        id="testimonials"
+        className="snap-start min-h-screen bg-white dark:bg-black text-gray-800 dark:text-white px-6 py-16 flex items-center justify-center"
+      >
+        <div className="max-w-6xl w-full">
+          <motion.h2
+            className="text-3xl sm:text-4xl font-bold mb-25"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            What they say about me
+          </motion.h2>
+
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left: Avatar Card with Quote and Arrows */}
+            <motion.div
+              className="w-full lg:w-1/3 flex justify-center items-center relative"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              {/* Arrow buttons above image, side by side */}
+              <div className="absolute -top-15 flex gap-2 z-10">
+                <button
+                  onClick={prev}
+                  className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition shadow"
+                >
+                  <FaArrowLeft />
+                </button>
+                <button
+                  onClick={next}
+                  className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition shadow"
+                >
+                  <FaArrowRight />
+                </button>
+              </div>
+
+              {/* Quote box (overlapping top-right) */}
+              <motion.div
+                className="absolute -top-6 -right-60 bg-white dark:bg-black text-gray-700 dark:text-white text-sm italic shadow-md px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 max-w-xs z-50"
+                key={current}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                “{testimonials[current].quote}”
+              </motion.div>
+
+              <div className="max-w-xs w-full border rounded-xl overflow-hidden shadow-md p-4 text-center bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-gray-700 relative">
+                {/* Avatar Image (3:4 ratio) */}
+                <motion.div
+                  className="relative w-full h-85 mb-3"
+                  key={current + '-avatar'}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img
+                    src={testimonials[current].avatar}
+                    alt={testimonials[current].name}
+                    className="w-full h-full object-cover rounded-md"
+                  />
+                </motion.div>
+
+                {/* Name & Role */}
+                <p className="text-lg font-semibold text-gray-800 dark:text-white">
+                  {testimonials[current].name}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {testimonials[current].role}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Right: Testimonial Selector Grid */}
+            <motion.div
+              className="w-full lg:w-2/3 flex flex-col gap-6 h-full"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              {/* Rectangular Avatar Cards (scrollable, at bottom) */}
+              <div className="w-full mt-50">
+                <div className="flex overflow-x-auto gap-4 px-1 scrollbar-hide">
+                  {testimonials.map((t, idx) => (
+                    <motion.div
+                      key={idx}
+                      onClick={() => setCurrent(idx)}
+                      className={`flex-shrink-0 w-40 border rounded-xl overflow-hidden shadow-sm p-3 text-center transition-all hover:shadow-md ${idx === current
+                        ? 'border-orange-500'
+                        : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100'
+                        }`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <img
+                        src={t.avatar}
+                        alt={t.name}
+                        className="w-full h-38 object-cover rounded-md mb-2"
+                      />
+                      <p className="text-sm font-semibold text-gray-800 dark:text-white">
+                        {t.name}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {t.role}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+
+
       <section
         id="contact"
         className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black text-gray-800 dark:text-white px-6 py-16"
       >
-        <motion.div
-          className="max-w-3xl w-full text-center"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">
-            Contact
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            Have an idea or project in mind? Let’s connect and build something impactful.
-          </p>
-
-          <div className="flex justify-center gap-6 text-2xl mb-8">
-            <a href="mailto:sanket@example.com" className="hover:text-indigo-500 transition" title="Email">
-              <FaEnvelope />
-            </a>
-            <a href="https://linkedin.com/in/your-linkedin" target="_blank" className="hover:text-indigo-500 transition" title="LinkedIn">
-              <FaLinkedin />
-            </a>
-            <a href="https://github.com/your-github" target="_blank" className="hover:text-indigo-500 transition" title="GitHub">
-              <FaGithub />
-            </a>
-          </div>
-
-          <button
-            className="px-6 py-2 border border-indigo-500 text-indigo-500 rounded-lg hover:bg-indigo-500 hover:text-white transition"
+        <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-12 items-center">
+          {/* Left: Call to Action + Socials */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="w-full lg:w-1/2 space-y-6"
           >
-            Know More
-          </button>
-        </motion.div>
+            <h2 className="text-3xl sm:text-4xl font-bold">
+              Let’s Work Together
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
+              Have a project in mind or just want to say hello? I’m always open to new opportunities,
+              collaborations, or just grabbing a virtual coffee ☕.
+            </p>
+
+            <div className="flex gap-4 mt-6">
+              {/* Social Icons */}
+              <a href="mailto:you@example.com" className="text-orange-500 hover:text-orange-600 text-2xl">
+                <i className="fas fa-envelope" />
+              </a>
+              <a href="https://linkedin.com/in/yourprofile" target="_blank" className="text-orange-500 hover:text-orange-600 text-2xl">
+                <i className="fab fa-linkedin" />
+              </a>
+              <a href="https://github.com/yourprofile" target="_blank" className="text-orange-500 hover:text-orange-600 text-2xl">
+                <i className="fab fa-github" />
+              </a>
+              <a href="https://twitter.com/yourprofile" target="_blank" className="text-orange-500 hover:text-orange-600 text-2xl">
+                <i className="fab fa-twitter" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right: Contact Form */}
+          <motion.form
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="w-full lg:w-1/2 bg-white dark:bg-white/5 backdrop-blur-lg rounded-xl shadow-xl p-8 border border-gray-200 dark:border-gray-700 space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Add real submission logic here
+              alert('Message sent!');
+            }}
+          >
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                required
+                placeholder="Your name"
+                className="w-full px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="w-full px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Message</label>
+              <textarea
+                required
+                rows={5}
+                placeholder="Your message..."
+                className="w-full px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+            >
+              Send Message
+            </button>
+          </motion.form>
+        </div>
       </section>
 
+
+
       {/* 🎯 Overlay Component */}
-      {openSection === 'about' && (
-        <div className="fixed inset-0 z-[60] bg-white p-6 overflow-y-auto">
-          <button
-            className="absolute top-4 right-4 text-gray-600 hover:text-black text-xl"
-            onClick={() => setOpenSection(null)}
-          >
-            ✕ Close
-          </button>
-          <AboutMeCard />
-        </div>
-      )}
-    </div>
+      {
+        openSection === 'about' && (
+          <div className="fixed inset-0 z-[60] bg-white p-6 overflow-y-auto">
+            <button
+              className="absolute top-4 right-4 text-gray-600 hover:text-black text-xl"
+              onClick={() => setOpenSection(null)}
+            >
+              ✕ Close
+            </button>
+            <AboutMeCard />
+          </div>
+        )
+      }
+    </div >
   );
 }
