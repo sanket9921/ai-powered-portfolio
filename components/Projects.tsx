@@ -1,100 +1,112 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import ProjectCard from "./ProjectCard"
+import ProjectsGrid from './ProjectCard';
 
 const projects = [
   {
-    title: 'Mock Test Platform',
-    description:
-      'Custom AI-powered mock test system for campus and competitive prep. Includes live scoring, analytics, and question banks.',
-    tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Bootstrap'],
-    liveLink: 'https://your-live-demo-link.com',
-    githubLink: 'https://github.com/your-username/mock-test-platform',
+    title: 'Mock Test App',
+    desc: 'Built for coaching institutes to conduct and manage online mock tests efficiently, with auto-evaluation and analytics.',
+    tech: ['React', 'Node.js', 'MongoDB'],
+    images: [
+      '/images/mock1.png',
+      '/images/mock2.png',
+      '/images/mock3.png',
+    ],
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
   },
   {
-    title: 'Campus Job Portal',
-    description:
-      'Multi-role web app for colleges, companies, and students. Includes job applications, role-based dashboards, and TPO controls.',
-    tech: ['React', 'Express', 'Sequelize', 'PostgreSQL'],
-    liveLink: 'https://campus-portal.com',
-    githubLink: 'https://github.com/your-username/job-portal',
+    title: 'Job Portal MVP',
+    desc: 'Launched in 10 days to help early-stage startups connect with talent. Includes job listing, applications, and email notifications.',
+    tech: ['Next.js', 'Supabase', 'Tailwind CSS'],
+    images: [
+      '/images/job1.png',
+      '/images/job2.png',
+      '/images/job3.png',
+    ],
+    videoUrl: 'https://www.youtube.com/embed/tgbNymZ7vqY',
   },
   {
-    title: 'Portfolio AI (This Site)',
-    description:
-      'AI-powered interactive portfolio that dynamically renders sections based on user queries. Built with Next.js and Groq backend.',
-    tech: ['Next.js', 'Tailwind', 'AI SDK', 'Groq', 'TypeScript'],
-    liveLink: 'https://your-portfolio.com',
-    githubLink: 'https://github.com/your-username/portfolio-ai',
+    title: 'Internal Ops Dashboard',
+    desc: 'Custom admin panel for startup team to manage tasks, users, and internal workflows. Integrated with Google Sheets and Slack API.',
+    tech: ['React', 'Spring Boot', 'PostgreSQL'],
+    images: [
+      '/images/ops1.png',
+      '/images/ops2.png',
+      '/images/ops3.png',
+    ],
+    videoUrl: 'https://www.youtube.com/embed/vbLkJsGz8LQ',
+  },
+  {
+    title: 'E-learning Course Hub',
+    desc: 'Multi-role platform where admins upload lessons, students enroll, and progress is tracked via a dashboard.',
+    tech: ['Vue', 'Firebase', 'Tailwind CSS'],
+    images: [
+      '/images/learn1.png',
+      '/images/learn2.png',
+      '/images/learn3.png',
+    ],
+    videoUrl: 'https://www.youtube.com/embed/VYOjWnS4cMY',
+  },
+  {
+    title: 'AI Resume Analyzer',
+    desc: 'Frontend + backend app where users upload resumes and get GPT-powered feedback on structure, keywords, and formatting.',
+    tech: ['React', 'Express', 'OpenAI API'],
+    images: [
+      '/images/resume1.png',
+      '/images/resume2.png',
+      '/images/resume3.png',
+    ],
+    videoUrl: 'https://www.youtube.com/embed/3JZ_D3ELwOQ',
   },
 ];
 
+
+
 export default function Projects() {
   return (
-    <section
-      id="projects-full"
-      className="min-h-screen w-full bg-white dark:bg-black text-gray-900 dark:text-white px-6 py-16"
-    >
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-12 text-center">
-            My Projects
-          </h2>
+    <>
+      <section
+        id="projects-hero"
+        className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-6 flex items-center justify-center"
+      >
+        <div className="max-w-5xl mx-auto text-center space-y-8">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl sm:text-6xl font-bold text-orange-500"
+          >
+            Real Projects. Real Impact.
+          </motion.h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition"
-                whileHover={{ scale: 1.02 }}
-              >
-                <h3 className="text-2xl font-semibold mb-2 text-indigo-600 dark:text-indigo-400">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                  {project.description}
-                </p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            I’ve helped early-stage startups, solo founders, and growing teams turn ideas into working products — fast. From MVPs to internal tools, I build software that ships smart and scales smoothly.
+          </motion.p>
 
-                <div className="flex flex-wrap gap-2 text-sm mb-4">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-white rounded"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-sm text-gray-500 dark:text-gray-400"
+          >
+            🚀 10+ fullstack projects delivered using React, Next.js, Spring Boot, and more.
+          </motion.p>
+        </div>
+      </section>
 
-                <div className="flex gap-4 text-lg">
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-indigo-500 flex items-center gap-1"
-                  >
-                    <FaGithub /> GitHub
-                  </a>
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-indigo-500 flex items-center gap-1"
-                  >
-                    <FaExternalLinkAlt /> Live
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+      <ProjectsGrid />
+
+
+
+    </>
   );
 }

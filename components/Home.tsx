@@ -12,6 +12,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import { FaBandage } from 'react-icons/fa6';
 import HeroBackground from './HeroBackground';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import CursorBlob from './CursorBlob';
 
 const sections = ['hero', 'about', `experience`, 'skills', 'projects', 'testimonials', 'contact'];
 
@@ -192,6 +193,7 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+      <CursorBlob />
 
       {/* 🚩 Left Side Dot Navigation */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
@@ -433,7 +435,7 @@ export default function Home() {
           viewport={{ once: true }}
         >
           <motion.div
-            className="absolute top-20 -right-10 z-50"
+            className="absolute top-1/2 -right-20 z-50"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -696,7 +698,7 @@ export default function Home() {
                   className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6}}
+                  transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                 >
                   <div className="overflow-hidden">

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCode, FaGraduationCap, FaBriefcase, FaTools, FaLightbulb, FaRocket, FaRobot, FaServer, FaBook, FaBrain, FaLock, FaUsers, FaArrowRight, FaEye, FaShieldAlt, FaCrosshairs, FaHandsHelping, FaChessKing, FaCertificate, FaUniversity, FaCrown, FaAws, FaGithub, FaLinkedin, FaTwitter, FaChartLine, FaPlay } from "react-icons/fa";
-import { SiJavascript, SiReact, SiNodedotjs, SiPython, SiTensorflow } from "react-icons/si";
 import CursorBlob from "./CursorBlob";
 import {
   LayoutDashboard,
@@ -16,6 +15,28 @@ import {
   BadgeCheck,
   UserCheck,
 } from 'lucide-react';
+
+import ReactFlow, {
+  addEdge,
+  MiniMap,
+  Controls,
+  Background,
+  Connection,
+  Edge,
+} from 'react-flow-renderer';
+import {
+  SiReact,
+  SiSpring,
+  SiMongodb,
+  SiSupabase,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiTailwindcss,
+  SiSpringboot,
+  SiTypescript,
+  SiPostgresql,
+  SiExpress,
+} from 'react-icons/si';
 
 const services = [
   {
@@ -90,8 +111,70 @@ const steps = [
   },
 ];
 
+const techStack = {
+  Frontend: [
+    {
+      name: 'React.js',
+      icon: SiReact,
+      desc: 'Modern UI library for building interfaces',
+    },
+    {
+      name: 'Next.js',
+      icon: SiNextdotjs,
+      desc: 'React framework for SSR and fullstack apps',
+    },
+    {
+      name: 'Tailwind CSS',
+      icon: SiTailwindcss,
+      desc: 'Utility-first CSS framework for rapid styling',
+    },
+    
+  ],
+  Backend: [
+    {
+      name: 'Express.js',
+      icon: SiExpress,
+      desc: 'Minimalist Node.js framework for APIs',
+    },
+    {
+      name: 'Spring Boot',
+      icon: SiSpringboot,
+      desc: 'Java backend framework for scalable APIs',
+    },
+    {
+      name: 'Node.js',
+      icon: SiNodedotjs,
+      desc: 'Event-driven JS runtime for server-side apps',
+    },
+  ],
+  Database: [
+    {
+      name: 'MongoDB',
+      icon: SiMongodb,
+      desc: 'NoSQL database optimized for fast dev & scale',
+    },
+    {
+      name: 'Supabase',
+      icon: SiSupabase,
+      desc: 'Open source Firebase alternative with Postgres',
+    },
+    {
+      name: 'postgresql',
+      icon: SiPostgresql,
+      desc: 'Relational database for structured data',
+    },
+  ],
+  Infra: [
+    {
+      name: 'TypeScript',
+      icon: SiTypescript,
+      desc: 'Strongly typed JS for reliable development',
+    },
+  ],
+};
 
 export default function AboutMeCard() {
+
 
   return (<>
 
@@ -321,6 +404,7 @@ export default function AboutMeCard() {
         </motion.div>
       </div>
     </section>
+
     <section
       id="my-journey"
       className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-950 py-24 px-6 text-gray-800 dark:text-white relative"
@@ -330,9 +414,9 @@ export default function AboutMeCard() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-5xl sm:text-6xl font-bold text-orange-500 text-center mb-28"
+          className="text-5xl sm:text-6xl font-bold text-center mb-28"
         >
-          My Journey
+          My <span className="text-[var(--color-primary)]">Journey</span>
         </motion.h2>
 
         {/* Glowing center trail */}
@@ -373,6 +457,75 @@ export default function AboutMeCard() {
         </div>
       </div>
     </section>
+
+    <section
+      id="tech-stack"
+      className="min-h-screen bg-white dark:bg-gray-900 py-24 px-6 text-gray-800 dark:text-white"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[70%_30%] gap-16 items-start">
+        {/* Left: Tech stack */}
+        <div className="space-y-14">
+          {Object.entries(techStack).map(([category, tools], catIndex) => (
+            <div key={category} className="space-y-4">
+              <motion.h3
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: catIndex * 0.1 }}
+                className="text-xl font-semibold text-orange-600"
+              >
+                {category}
+              </motion.h3>
+
+              <div className="flex flex-wrap gap-4">
+                {tools.map((tool, i) => {
+                  const Icon = tool.icon;
+                  return (
+                    <motion.div
+                      key={tool.name}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.08 }}
+                      className="relative group"
+                    >
+                      <div className="flex items-center space-x-2 px-5 py-3 rounded-full bg-orange-100 dark:bg-gray-800 text-sm font-medium shadow-md hover:scale-105 hover:shadow-lg transition duration-200 ring-2 ring-transparent hover:ring-orange-400">
+                        <Icon className="w-5 h-5 text-orange-500" />
+                        <span>{tool.name}</span>
+                      </div>
+
+                      <div className="absolute left-1/2 bottom-12 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 text-xs bg-orange-200 text-black px-3 py-1 rounded-md whitespace-nowrap z-10 transition-all duration-300">
+                        {tool.desc}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right: Heading and description */}
+        {/* Right: Heading and description */}
+        <div className="flex items-center h-full">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center lg:text-left space-y-6 "
+          >
+            <h2 className="text-7xl font-bold">
+              The <span className="text-[var(--color-primary)]">Tools</span> Behind My <span className="text-[var(--color-primary)]">Velocity</span>
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-400">
+              Every project I touch is powered by a thoughtful blend of modern technologies.
+              These tools aren’t just checkboxes — they’re part of the way I think, build, and deliver.
+            </p>
+          </motion.div>
+        </div>
+
+      </div>
+    </section>
+
+
   </>
   );
 }
