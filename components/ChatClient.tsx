@@ -66,7 +66,7 @@ export default function ChatClient({
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-50"
+      className="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-9999"
     >
       <div className="flex items-center gap-2 bg-white dark:bg-white/5 backdrop-blur-md border border-gray-300 dark:border-gray-700 p-3 rounded-2xl shadow-2xl">
         <input

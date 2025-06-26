@@ -137,6 +137,12 @@ export default function Home() {
       tech: 'Flask, React, APScheduler',
       link: '#',
     },
+    {
+      title: 'Career Guidance',
+      description: 'App to help school students discover ideal.',
+      tech: 'Flask, React, APScheduler',
+      link: '#',
+    },
   ];
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -208,8 +214,6 @@ export default function Home() {
       </div>
 
       {/* ✅ Hero Section */}
-      {/* <div className="absolute inset-0 -z-10 animate-gradient-x" /> */}
-
 
       <section
         id="hero"
@@ -574,7 +578,7 @@ export default function Home() {
       {/* ✅ Skills Preview */}
       <section
         id="skills"
-        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
       >
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left - Headline */}
@@ -689,10 +693,10 @@ export default function Home() {
               {projects.map((project, idx) => (
                 <motion.div
                   key={idx}
-                  className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700  shadow-lg p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
-                  initial={{ opacity: 0, y: 30 }}
+                  className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                  transition={{ duration: 0.6}}
                   viewport={{ once: true }}
                 >
                   <div className="overflow-hidden">
@@ -719,10 +723,10 @@ export default function Home() {
 
               {/* See More Button */}
               <motion.div
-                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-[var(--color-primary)] text-white flex items-center justify-center shadow-lg p-6 snap-center font-bold text-xl hover:scale-105 transition-transform duration-300 overflow-hidden"
+                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-[var(--color-primary)] text-white flex items-center justify-center  p-6 snap-center font-bold text-xl transition-transform  overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 * projects.length }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
                 <button className="hover:scale-110 transition-transform whitespace-nowrap">
@@ -737,7 +741,7 @@ export default function Home() {
       {/* ✅ Testimonials Preview */}
       <section
         id="testimonials"
-        className="snap-start min-h-screen bg-white dark:bg-black text-gray-800 dark:text-white px-6 py-16 flex items-center justify-center"
+        className="snap-start min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16 flex items-center justify-center"
       >
         <div className="max-w-6xl w-full">
           <motion.h2
@@ -777,7 +781,7 @@ export default function Home() {
 
               {/* Quote box (overlapping top-right) */}
               <motion.div
-                className="absolute -top-6 -right-60 bg-white dark:bg-black text-gray-700 dark:text-white text-sm italic shadow-md px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 max-w-xs z-50"
+                className="absolute -top-6 -right-60 bg-white/90 dark:bg-gray-900/90 text-gray-700 dark:text-white text-sm italic shadow-md px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 max-w-xs z-50"
                 key={current}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -786,7 +790,7 @@ export default function Home() {
                 “{testimonials[current].quote}”
               </motion.div>
 
-              <div className="max-w-xs w-full border rounded-xl overflow-hidden shadow-md p-4 text-center bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-gray-700 relative">
+              <div className="max-w-xs w-full overflow-hidden shadow-md p-4 text-center bg-gray-50 dark:bg-white/5 border-4 border-orange-500 rounded-xl dark:border-gray-700 relative">
                 {/* Avatar Image (3:4 ratio) */}
                 <motion.div
                   className="relative w-full h-85 mb-3"
@@ -827,7 +831,7 @@ export default function Home() {
                     <motion.div
                       key={idx}
                       onClick={() => setCurrent(idx)}
-                      className={`flex-shrink-0 w-40 border rounded-xl overflow-hidden shadow-sm p-3 text-center transition-all ${idx === current
+                      className={`flex-shrink-0 w-40 border overflow-hidden shadow-sm p-3 text-center transition-all ${idx === current
                         ? 'border-orange-500'
                         : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100'
                         }`}
@@ -854,15 +858,9 @@ export default function Home() {
         </div>
       </section>
 
-
-
-
-
-
-
       <section
         id="contact"
-        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
       >
         <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-12 items-center">
           {/* Left: Call to Action + Socials */}
@@ -947,8 +945,6 @@ export default function Home() {
           </motion.form>
         </div>
       </section>
-
-
 
       {/* 🎯 Overlay Component */}
       {
