@@ -10,6 +10,5 @@ export const componentInfo: Record<string, string> = {
     Blogs: `
   Sanket blogs about web development, architecture, freelancing tips, and AI experiments. His writing is focused, experience-backed, and beginner-friendly.
   `,
-    // Add more if needed
   };
   
