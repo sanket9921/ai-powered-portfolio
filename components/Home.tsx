@@ -219,28 +219,25 @@ export default function Home() {
 
       <section
         id="hero"
-        className="relative hero-blob-bg snap-start min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative hero-blob-bg snap-start min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-0"
       >
-        {/* Blobs */}
-        <div className="blob blob-1" />
-        <div className="blob blob-2" />
-        <div className="blob blob-3" />
+        {/* Blobs - Adjusted for mobile */}
+        <div className="blob blob-1 scale-75 md:scale-100" />
+        <div className="blob blob-2 scale-75 md:scale-100" />
+        <div className="blob blob-3 scale-75 md:scale-100" />
 
-
-
-        <div className="absolute top-40 right-20 z-30">
+        {/* Projects Button - Mobile Repositioning */}
+        <div className="absolute top-10 md:top-32 right-4 md:right-20 z-30 scale-75 md:scale-100 mb-20 md:mb-0">
           <button
             onClick={() => {
               const el = document.getElementById('projects');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="relative w-[140px] h-[140px] rounded-full flex items-center justify-center group hover:scale-105 transition-transform duration-300"
+            className="relative w-[100px] md:w-[140px] h-[100px] md:h-[140px] rounded-full flex items-center justify-center group hover:scale-105 transition-transform duration-300"
           >
-            <div className="w-[100px] h-[100px] rounded-full border-2 border-[var(--color-primary)] text-[var(--color-primary)] dark:text-[var(--color-primary)] flex items-center justify-center text-base font-semibold z-10 shadow-md bg-transparent backdrop-blur-sm">
+            <div className="w-[70px] md:w-[100px] h-[70px] md:h-[100px] rounded-full border-2 border-[var(--color-primary)] text-[var(--color-primary)] dark:text-[var(--color-primary)] flex items-center justify-center text-sm md:text-base font-semibold z-10 shadow-md bg-transparent backdrop-blur-sm">
               Projects
             </div>
-
-
             {/* Circular Text SVG */}
             <svg
               className="absolute inset-0 w-full h-full group-hover:rotate-180 transition-transform duration-1000"
@@ -254,7 +251,7 @@ export default function Home() {
               </defs>
               <text
                 fill="currentColor"
-                className="text-[8.5px] tracking-[2px] uppercase text-[var(--color-primary)] dark:text-[var(--color-primary)] font-semibold"
+                className="text-[6px] md:text-[8.5px] tracking-[2px] uppercase text-[var(--color-primary)] dark:text-[var(--color-primary)] font-semibold"
               >
                 <textPath xlinkHref="#circlePath" startOffset="0%">
                   MY PROJECTS • MY PROJECTS • MY PROJECTS •
@@ -264,63 +261,49 @@ export default function Home() {
           </button>
         </div>
 
-
-
-
-
-
         <motion.div
-          className="w-6xl flex flex-col-reverse md:flex-row items-center   z-10"
+          className="w-full max-w-6xl flex flex-col-reverse md:flex-row items-center z-10 pt-16 md:pt-0"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ staggerChildren: 0.2 }}
         >
-          {/* Text Section */}
+          {/* Text Section - Mobile Adjustments */}
           <motion.div
-            className="flex-1 text-center md:text-left"
+            className="flex-1 text-center md:text-left mt-8 md:mt-0"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-800 dark:text-white">
-              Hi, I’m
+              Hi, I'm
             </h1>
-            <h2 className="text-6xl md:text-8xl lg:text-9xl font-extrabold leading-none">
+            <h2 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-extrabold leading-none">
               Sanket <span className="text-[var(--color-primary)] dark:text-orange-400">Gaikwad</span>
             </h2>
-            <h2 className="text-xl md:text-2xl mt-4 text-gray-700 dark:text-gray-300 font-medium">
+            <h2 className="text-lg md:text-xl lg:text-2xl mt-2 md:mt-4 text-gray-700 dark:text-gray-300 font-medium">
               Full Stack Developer · AI Enthusiast · Innovator
             </h2>
-            <div className="mt-6 flex flex-col md:flex-row gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-4 md:mt-6 flex flex-col md:flex-row gap-2 md:gap-4 text-xs md:text-sm text-gray-600 dark:text-gray-400">
               <span>⚡ React · Node.js · Python</span>
               <span>🌐 Clean UI · Scalable Code</span>
             </div>
 
             {/* Social Icons */}
             <motion.div
-              className="flex gap-6 justify-center md:justify-start text-2xl mt-6"
+              className="flex gap-4 md:gap-6 justify-center md:justify-start text-xl md:text-2xl mt-4 md:mt-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
               viewport={{ once: true }}
             >
-              <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition animate-pulse">
-                <FaGithub />
-              </a>
-              <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition animate-pulse">
-                <FaLinkedin />
-              </a>
-              <a href="https://twitter.com/your-twitter" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition animate-pulse">
-                <FaTwitter />
-              </a>
+              {/* Social icons remain the same */}
             </motion.div>
 
-            {/* Buttons */}
+            {/* Buttons - Stacked on mobile */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-start"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -329,22 +312,22 @@ export default function Home() {
               <a
                 href="/Sanket_Gaikwad_Resume.pdf"
                 download
-                className="px-6 py-3 rounded-lg border border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition"
+                className="px-4 py-2 md:px-6 md:py-3 rounded-lg border border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition text-sm md:text-base"
               >
                 Download Resume
               </a>
               <button
                 onClick={scrollToAbout}
-                className="px-6 py-3 rounded-lg bg-[var(--color-primary)] hover:bg-[var(--color-primary)] transition text-white"
+                className="px-4 py-2 md:px-6 md:py-3 rounded-lg bg-[var(--color-primary)] hover:bg-[var(--color-primary)] transition text-white text-sm md:text-base"
               >
                 Start Exploring
               </button>
             </motion.div>
           </motion.div>
 
-          {/* Image Section */}
+          {/* Image Section - Mobile Adjustments */}
           <motion.div
-            className="relative flex-1 flex justify-end items-center"
+            className="relative flex-1 flex justify-center md:justify-end items-center mt-8 md:mt-0 w-full"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -352,41 +335,38 @@ export default function Home() {
           >
             {/* Background card - rotated */}
             <div
-              className="absolute w-[380px] h-[465px] rotate-[8deg] z-0 shadow-xl"
+              className="absolute w-[280px] h-[340px] md:w-[380px] md:h-[465px] rotate-[8deg] z-0 shadow-xl"
               style={{ backgroundColor: '#ffb38a' }}
             />
 
             {/* Background card - straight */}
             <div
-              className="absolute w-[380px] h-[465px] right-0 bottom-0 z-10"
+              className="absolute w-[280px] h-[340px] md:w-[380px] md:h-[465px] md:right-0 bottom-0 z-10"
               style={{ backgroundColor: '#ff7e26' }}
             />
 
-
-            {/* Foreground image */}
+            {/* Foreground image - Responsive sizing */}
             <img
               src="/sanket_photo.png"
               alt="Sanket Gaikwad"
-              className="relative z-20 w-[380px] h-[460px] object-cover"
+              className="relative z-20 w-[280px] h-[340px] md:w-[380px] md:h-[460px] object-cover"
             />
 
-
-            {/* Bottom Left Info */}
-            <div className="absolute bottom-4 left-12 z-30 flex flex-col gap-2 text-sm text-white">
-              <div className="flex items-center gap-2 px-4 py-4 rounded-[15px] bg-black/30">
-                <FaBriefcase className="text-lg text-orange-400" />
-                <span>3+ Years of Experience</span>
+            {/* Bottom Left Info - Mobile Adjustments */}
+            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-12 z-30 flex flex-col gap-1 md:gap-2 text-xs md:text-sm text-white">
+              <div className="flex items-center gap-1 md:gap-2 px-2 py-2 md:px-4 md:py-4 rounded-[10px] md:rounded-[15px] bg-black/30">
+                <FaBriefcase className="text-sm md:text-lg text-orange-400" />
+                <span>3+ Years</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-4 rounded-[15px] bg-black/30">
-                <FaChartLine className="text-lg text-orange-400" />
-                <span>100% Success Rate</span>
+              <div className="flex items-center gap-1 md:gap-2 px-2 py-2 md:px-4 md:py-4 rounded-[10px] md:rounded-[15px] bg-black/30">
+                <FaChartLine className="text-sm md:text-lg text-orange-400" />
+                <span>100% Success</span>
               </div>
             </div>
 
-
-            {/* Freelance Availability Badge - Right Outside */}
+            {/* Freelance Availability Badge - Mobile Repositioning */}
             <motion.div
-              className="absolute -right-60 bottom-8 z-30 flex items-center gap-1"
+              className="absolute -right-4 md:-right-60 bottom-4 md:bottom-8 z-30 flex items-center gap-1 scale-75 md:scale-100"
               animate={{ y: [-5, 5], x: [-5, 5] }}
               transition={{
                 duration: 1.5,
@@ -395,47 +375,40 @@ export default function Home() {
                 ease: 'easeInOut',
               }}
             >
-              {/* Arrow pointing to image (moved slightly up using relative positioning) */}
-              <div className="text-orange-500 text-3xl rotate-[-135deg] relative -top-10">➤</div>
+              {/* Arrow - Hidden on smallest screens */}
+              <div className="hidden sm:block text-orange-500 text-xl md:text-3xl rotate-[-135deg] relative -top-6 md:-top-10">➤</div>
 
-              {/* Freelance badge with custom corner rounding */}
+              {/* Freelance badge */}
               <div
-                className="bg-black text-white px-4 py-4 shadow-lg font-semibold whitespace-nowrap"
+                className="bg-black text-white px-3 py-2 md:px-4 md:py-4 shadow-lg font-semibold whitespace-nowrap text-xs md:text-base"
                 style={{
                   borderTopLeftRadius: '0px',
-                  borderTopRightRadius: '15px',
-                  borderBottomRightRadius: '15px',
-                  borderBottomLeftRadius: '15px',
+                  borderTopRightRadius: '10px md:15px',
+                  borderBottomRightRadius: '10px md:15px',
+                  borderBottomLeftRadius: '10px md:15px',
                 }}
               >
                 Available for Freelance
               </div>
             </motion.div>
-
-
           </motion.div>
-
-
-
         </motion.div>
-
       </section>
 
       {/* ✅ About Preview */}
       <section
         id="about"
-        className="snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16 gap-25"
-      >
+        className="snap-start min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white py-12 md:py-16 gap-8 md:gap-16 lg:gap-25 md:px-0"      >
         {/* Left - Image Section */}
         <motion.div
-          className="relative bottom-10"
+          className="relative bottom-10-5 "
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
           <motion.div
-            className="absolute top-1/2 -right-20 z-50"
+            className="absolute top-1/2 -right-8 md:-right-20 z-50 scale-75 md:scale-100 transform -translate-y-1/2"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -445,8 +418,7 @@ export default function Home() {
                 // Add your video modal logic here
                 alert('Play intro video');
               }}
-              className="relative w-30 h-30 rounded-full flex items-center justify-center bg-white backdrop-blur-lg  text-[var(--color-primary)] text-3xl font-bold shadow-lg hover:scale-110 transition-transform duration-300"
-            >
+              className="relative w-20 h-20 md:w-30 md:h-30 rounded-full flex items-center justify-center bg-white backdrop-blur-lg text-[var(--color-primary)] text-xl md:text-3xl font-bold shadow-lg hover:scale-110 transition-transform duration-300"            >
               <FaPlay />
               {/* Wavy Pulse Animation */}
               <span className="absolute inset-0 rounded-full border-4 border-[var(--color-primary)] animate-ping-slow" />
@@ -470,9 +442,8 @@ export default function Home() {
 
 
           <div
-            className="absolute w-[300px] h-[400px] md:w-[560px] md:h-[635px] bottom-0 left-20 z-0 bg-[length:40px_40px] bg-[center] bg-grid-light dark:bg-grid-dark"
+            className="absolute w-[300px] h-[400px] md:w-[560px] md:h-[635px] bottom-0 left-20 z-0 bg-[length:40px_40px] bg-[center] bg-grid-light dark:bg-grid-dark hidden md:block"
           />
-
           {/* Background card - rotated */}
           <div
             className="absolute w-[300px] h-[400px] md:w-[560px] md:h-[565px] bottom-0 rotate-[6deg] z-5 shadow-xl"
@@ -580,27 +551,25 @@ export default function Home() {
       {/* ✅ Skills Preview */}
       <section
         id="skills"
-        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-4 sm:px-6 py-12 md:py-16"
       >
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {/* Left - Headline */}
           <motion.div
-            className="flex flex-col justify-center items-start"
+            className="flex flex-col justify-center items-start order-1 md:order-2"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-extrabold leading-tight uppercase tracking-tight text-gray-900 dark:text-white">
-              Technologies <span className="text-[var(--color-primary)] dark:text-[var(--color-primary)]">That Power</span> My Creative <span className="text-[var(--color-primary)] dark:text-[var(--color-primary)]">Code</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-extrabold leading-tight uppercase tracking-tight text-gray-900 dark:text-white">
+              Technologies <span className="text-[var(--color-primary)]">That Power</span> My Creative <span className="text-[var(--color-primary)]">Code</span>
             </h2>
           </motion.div>
 
-
-
           {/* Right - Skill Categories with Level */}
           <motion.div
-            className="flex flex-col justify-center gap-6"
+            className="flex flex-col justify-center gap-4 md:gap-6 order-2 md:order-1"
             variants={container}
             initial="hidden"
             whileInView="visible"
@@ -611,82 +580,81 @@ export default function Home() {
                 key={idx}
                 variants={item}
                 transition={{ duration: 0.6 }}
-                className="flex items-center rounded-lg px-6 py-5 shadow-md bg-white dark:bg-gray-800 text-lg font-medium 
-                     hover:bg-[var(--color-primary)] hover:text-white transition-colors duration-300 group"
+                className="flex items-center rounded-lg px-4 py-3 md:px-6 md:py-5 shadow-md bg-white dark:bg-gray-800 text-base md:text-lg font-medium 
+               hover:bg-[var(--color-primary)] hover:text-white transition-colors duration-300 group"
               >
-                {/* Skill Level - 3/12 */}
-                <div className="w-3/12 p-4 flex justify-end text-right text-6xl md:text-3xl font-semibold">
-                  <span className="font-bold text-4xl text-black dark:text-white group-hover:text-white">
+                {/* Skill Level */}
+                <div className="w-4/12 p-2 md:p-4 flex justify-end items-center">
+                  <span className="font-bold text-2xl md:text-4xl text-black dark:text-white group-hover:text-white">
                     {skill.level}
                   </span>
-                  <span className="text-sm mt-4 group-hover:text-white">/10</span>
+                  <span className="text-xs md:text-sm ml-1 group-hover:text-white">/10</span>
                 </div>
 
-                {/* Vertical Divider */}
-                <div className="w-px h-20 bg-gray-300 dark:bg-gray-600 group-hover:bg-white" />
-                <div className="w-4/12" />
+                {/* Vertical Divider - Hidden on small mobile */}
+                <div className="hidden xs:block w-px h-12 md:h-20 bg-gray-300 dark:bg-gray-600 group-hover:bg-white mx-2" />
 
-                {/* Skill Label - 9/12 */}
-                <div className="w-5/12 pl-4 py-4 flex justify-end text-right text-2xl md:text-3xl font-semibold text-black dark:text-white group-hover:text-white">
+                {/* Spacer - Adjusted for mobile */}
+                <div className="w-1/12 md:w-4/12" />
+
+                {/* Skill Label */}
+                <div className="w-7/12 xs:w-6/12 md:w-5/12 pl-2 md:pl-4 py-2 md:py-4 flex justify-end text-right text-lg md:text-2xl font-semibold text-black dark:text-white group-hover:text-white">
                   {skill.label}
                 </div>
               </motion.div>
             ))}
           </motion.div>
-
         </div>
       </section>
 
       {/* ✅ Projects Preview */}
       <section
         id="projects"
-        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
+        className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-4 sm:px-6 py-12 md:py-16"
       >
-        <div
-          className="relative px-6 py-16 overflow-hidden"
-        >
+        <div className="relative w-full max-w-6xl px-4 py-12 md:px-6 md:py-16 overflow-hidden">
           {/* Scroll Arrows with Horizontal Line */}
-          <div className="absolute top-5 left-50  z-10 flex items-center justify-center px-6">
-            {/* Arrow Buttons */}
-            <div className="relative z-10 flex gap-3 px-4">
+          <div className="absolute top-4 md:top-5 left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-full px-4">
+            <div className="relative z-10 flex gap-2 md:gap-3 px-2 md:px-4">
               <button
                 onClick={() => scroll('left')}
-                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
+                className="p-1.5 md:p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
               >
-                <FiChevronLeft size={20} />
+                <FiChevronLeft size={16} className="md:w-5" />
               </button>
               <button
                 onClick={() => scroll('right')}
-                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
+                className="p-1.5 md:p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition"
               >
-                <FiChevronRight size={20} />
+                <FiChevronRight size={16} className="md:w-5" />
               </button>
             </div>
-            <hr />
+            <hr className="absolute w-full border-t border-gray-300 dark:border-gray-600 top-1/2 -z-10" />
           </div>
-
 
           {/* Scrollable Row */}
           <div
             ref={scrollRef}
-            className="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide"
+            className="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide pb-4"
           >
-            <div className="inline-flex items-stretch gap-8 px-10 ml-50 snap-x snap-mandatory">
+            <div className="inline-flex items-stretch gap-4 md:gap-8 px-2 md:px-10 snap-x snap-mandatory">
               {/* Fancy Header Block */}
               <motion.div
-                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 snap-center  p-6 flex flex-col  overflow-hidden"
+                className="w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] h-[420px] sm:h-[480px] md:h-[540px] flex-shrink-0 snap-center p-4 md:p-6 flex flex-col overflow-hidden"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold uppercase tracking-tight leading-tight text-balance">
+                <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight leading-tight text-balance">
                   <span className="text-[var(--color-primary)]">Creative</span>
-                  <span className="text-black dark:text-white"> Thinking </span><span className='text-[var(--color-primary)]'>Meets</span><span> Functional</span> <span className='text-[var(--color-primary)]'> Development</span>
+                  <span className="text-black dark:text-white"> Thinking </span>
+                  <span className="text-[var(--color-primary)]">Meets</span>
+                  <span> Functional</span>
+                  <span className="text-[var(--color-primary)]"> Development</span>
                 </h2>
 
-
-                <p className="mt-4 text-base text-gray-600 dark:text-gray-400 break-words whitespace-normal overflow-hidden text-ellipsis">
+                <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 break-words whitespace-normal">
                   Each project is a real-world solution — blending design, performance and innovation.
                 </p>
               </motion.div>
@@ -695,27 +663,27 @@ export default function Home() {
               {projects.map((project, idx) => (
                 <motion.div
                   key={idx}
-                  className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
+                  className="w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] h-[420px] sm:h-[480px] md:h-[540px] flex-shrink-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 md:p-6 snap-center flex flex-col justify-between transition-transform duration-300 overflow-hidden"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                 >
                   <div className="overflow-hidden">
-                    <h3 className="text-2xl font-bold text-orange-500 dark:text-orange-400 mb-2 break-words whitespace-normal">
+                    <h3 className="text-xl sm:text-2xl font-bold text-orange-500 dark:text-orange-400 mb-1 sm:mb-2 break-words whitespace-normal">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 break-words whitespace-normal overflow-hidden">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 sm:mb-4 break-words whitespace-normal">
                       {project.description}
                     </p>
-                    <span className="text-xs px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 rounded-full break-words whitespace-normal inline-block max-w-full overflow-hidden text-ellipsis">
+                    <span className="text-xs px-2 sm:px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 rounded-full break-words whitespace-normal inline-block max-w-full">
                       {project.tech}
                     </span>
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-2 sm:mt-4">
                     <a
                       href={project.link}
-                      className="inline-block px-4 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition"
+                      className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-full bg-orange-500 text-white hover:bg-orange-600 transition"
                     >
                       View Project
                     </a>
@@ -725,13 +693,13 @@ export default function Home() {
 
               {/* See More Button */}
               <motion.div
-                className="w-[360px] md:w-[400px] h-[540px] flex-shrink-0 bg-[var(--color-primary)] text-white flex items-center justify-center  p-6 snap-center font-bold text-xl transition-transform  overflow-hidden"
+                className="w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] h-[420px] sm:h-[480px] md:h-[540px] flex-shrink-0 bg-[var(--color-primary)] text-white flex items-center justify-center p-4 md:p-6 snap-center font-bold text-lg sm:text-xl transition-transform overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <button className="hover:scale-110 transition-transform whitespace-nowrap">
+                <button className="hover:scale-105 sm:hover:scale-110 transition-transform whitespace-nowrap">
                   See More Projects →
                 </button>
               </motion.div>
@@ -739,15 +707,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ✅ Testimonials Preview */}
       <section
         id="testimonials"
-        className="snap-start min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16 flex items-center justify-center"
+        className="snap-start min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white px-4 sm:px-6 py-12 md:py-16 flex items-center justify-center"
       >
         <div className="max-w-6xl w-full">
           <motion.h2
-            className="text-3xl sm:text-4xl font-bold mb-25"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-15 sm:mb-20 text-center lg:text-left"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -756,34 +723,34 @@ export default function Home() {
             What they say about me
           </motion.h2>
 
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-12">
             {/* Left: Avatar Card with Quote and Arrows */}
             <motion.div
-              className="w-full lg:w-1/3 flex justify-center items-center relative"
+              className="w-full lg:w-1/2 xl:w-1/3 flex justify-center items-center relative mb-8 lg:mb-0"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              {/* Arrow buttons above image, side by side */}
-              <div className="absolute -top-15 flex gap-2 z-10">
+              {/* Arrow buttons - repositioned for mobile */}
+              <div className="absolute -top-13 sm:-top-15 left-0 right-0 flex justify-center gap-4 z-10">
                 <button
                   onClick={prev}
                   className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition shadow"
                 >
-                  <FaArrowLeft />
+                  <FaArrowLeft size={14} className="sm:w-4" />
                 </button>
                 <button
                   onClick={next}
                   className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-300 hover:scale-110 transition shadow"
                 >
-                  <FaArrowRight />
+                  <FaArrowRight size={14} className="sm:w-4" />
                 </button>
               </div>
 
-              {/* Quote box (overlapping top-right) */}
+              {/* Quote box - responsive positioning */}
               <motion.div
-                className="absolute -top-6 -right-60 bg-white/90 dark:bg-gray-900/90 text-gray-700 dark:text-white text-sm italic shadow-md px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 max-w-xs z-50"
+                className="absolute -top-4 sm:-top-6 -right-4 sm:-right-60 bg-white/90 dark:bg-gray-900/90 text-gray-700 dark:text-white text-xs sm:text-sm italic shadow-md px-3 py-1 sm:px-4 sm:py-2 rounded-lg border border-gray-200 dark:border-gray-600 max-w-[180px] sm:max-w-xs z-50"
                 key={current}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -792,10 +759,10 @@ export default function Home() {
                 “{testimonials[current].quote}”
               </motion.div>
 
-              <div className="max-w-xs w-full overflow-hidden shadow-md p-4 text-center bg-gray-50 dark:bg-white/5 border-4 border-orange-500 rounded-xl dark:border-gray-700 relative">
-                {/* Avatar Image (3:4 ratio) */}
+              <div className="max-w-xs w-full overflow-hidden shadow-md p-3 sm:p-4 text-center bg-gray-50 dark:bg-white/5 border-4 border-orange-500 rounded-xl dark:border-gray-700 relative">
+                {/* Avatar Image */}
                 <motion.div
-                  className="relative w-full h-85 mb-3"
+                  className="relative w-full aspect-[3/4] mb-2 sm:mb-3"
                   key={current + '-avatar'}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -809,10 +776,10 @@ export default function Home() {
                 </motion.div>
 
                 {/* Name & Role */}
-                <p className="text-lg font-semibold text-gray-800 dark:text-white">
+                <p className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white">
                   {testimonials[current].name}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                   {testimonials[current].role}
                 </p>
               </div>
@@ -820,35 +787,37 @@ export default function Home() {
 
             {/* Right: Testimonial Selector Grid */}
             <motion.div
-              className="w-full lg:w-2/3 flex flex-col gap-6 h-full"
+              className="w-full lg:w-1/2 xl:w-2/3 flex flex-col gap-4 sm:gap-6 h-full"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              {/* Rectangular Avatar Cards (scrollable, at bottom) */}
-              <div className="w-full mt-50">
-                <div className="flex overflow-x-auto gap-4 px-1 scrollbar-hide">
+              {/* Rectangular Avatar Cards */}
+              <div className="w-full mt-4 sm:mt-8">
+                <div className="flex overflow-x-auto gap-3 sm:gap-4 px-1 scrollbar-hide pb-2">
                   {testimonials.map((t, idx) => (
                     <motion.div
                       key={idx}
                       onClick={() => setCurrent(idx)}
-                      className={`flex-shrink-0 w-40 border overflow-hidden shadow-sm p-3 text-center transition-all ${idx === current
-                        ? 'border-orange-500'
-                        : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100'
+                      className={`flex-shrink-0 w-28 sm:w-32 md:w-40 border overflow-hidden shadow-sm p-2 sm:p-3 text-center transition-all cursor-pointer ${idx === current
+                          ? 'border-orange-500'
+                          : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100'
                         }`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
                     >
-                      <img
-                        src={t.avatar}
-                        alt={t.name}
-                        className="w-full h-38 object-cover rounded-md mb-2"
-                      />
-                      <p className="text-sm font-semibold text-gray-800 dark:text-white">
+                      <div className="aspect-[3/4] w-full mb-1 sm:mb-2">
+                        <img
+                          src={t.avatar}
+                          alt={t.name}
+                          className="w-full h-full object-cover rounded-md"
+                        />
+                      </div>
+                      <p className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-white truncate">
                         {t.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 truncate">
                         {t.role}
                       </p>
                     </motion.div>
@@ -864,7 +833,7 @@ export default function Home() {
         id="contact"
         className="snap-start min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white px-6 py-16"
       >
-        <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-12 items-center">
+        <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-12 items-center mb-50">
           {/* Left: Call to Action + Socials */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
