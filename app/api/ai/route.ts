@@ -1,7 +1,9 @@
 // app/api/ai/route.ts
 
 import { NextRequest } from 'next/server';
-import { componentInfo } from '@/data/componentInfo';
+import { componentInfo } from '@/content/componentContext';
+import { getChatCompletion } from '@/lib/ai/openai';
+import { ChatMessage } from '@/types/ai';
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,7 +16,7 @@ export async function POST(req: NextRequest) {
     else if (userQuery.includes('about')) relevantInfo = componentInfo.AboutMeCard;
     else if (userQuery.includes('blog')) relevantInfo = componentInfo.Blogs;
 
-    const fullMessages = [
+    const fullMessages: ChatMessage[] = [
       {
         role: 'system',
         content: `
@@ -42,30 +44,16 @@ ${relevantInfo}
       }
     ];
 
-
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY ?? ''}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'llama3-70b-8192',
-        messages: fullMessages,
-      }),
-    });
-
-    const data = await res.json();
-    const content = data?.choices?.[0]?.message?.content;
-    console.log('🌐 AI Response:', content);
+    const content = await getChatCompletion(fullMessages);
+    console.log('🌐 OpenAI Response:', content);
 
     if (!content) {
-      return Response.json({ error: 'Groq returned no content' }, { status: 500 });
+      return Response.json({ error: 'OpenAI returned no content' }, { status: 500 });
     }
 
     return Response.json({ content });
   } catch (err) {
-    console.error('💥 Error:', err);
+    console.error('💥 AI API Error:', err);
     return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

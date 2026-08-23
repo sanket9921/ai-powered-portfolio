@@ -9,12 +9,12 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null; // prevent mismatched render
+  if (!mounted) return null;
 
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="fixed top-4 right-4 z-50 p-2 bg-gray-200 dark:bg-gray-800 text-black dark:text-white rounded"
+      className="fixed top-4 right-4 z-50 p-2 bg-gray-200 dark:bg-gray-800 text-black dark:text-white rounded cursor-pointer"
     >
       {theme === 'dark' ? '🌞 Light' : '🌙 Dark'}
     </button>

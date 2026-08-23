@@ -1,0 +1,18 @@
+ID,Phase,Category,Task Name,Target File/Location,Priority,Status,Action Details
+1,Phase 1,Routing,Resume Deep-Link Hash Routing,app/page.tsx,High,Pending,Parse URL hash (/#projects/id) on load to directly open corresponding project case study modal or blog
+2,Phase 1,AI/RAG,Project & Blog RAG Knowledge Engine,app/api/ai/route.ts,High,Pending,Upgrade AI route to inject deep project specs (architecture DB choices metrics) into OpenAI context for RAG Q&A
+3,Phase 1,AI/UI,In-Modal Ask AI About This Project Button,components/cards/ProjectCard.tsx,High,Pending,Add prompt button inside Case Study modal to pre-scope AI assistant for Q&A on that exact project
+4,Phase 2,Lead Gen,AI Project Scope & Cost Estimator,components/sections/Contact.tsx,High,Pending,Build interactive AI scope calculator capturing Name Company Email Phone Budget & Timeline
+5,Phase 2,Contact,Setup Contact Form API Route,app/api/contact/route.ts,High,Pending,Implement API route to send lead submissions and proposal requests via Resend/Nodemailer
+6,Phase 3,Video,Personal Video Pitch in Hero,components/sections/Home.tsx,High,Pending,Embed 60-second video introducing Sanket 10-day MVP delivery model and AI features
+7,Phase 3,Video,Case Study Loom Walkthroughs,components/cards/ProjectCard.tsx,High,Pending,Embed 90-second Loom/YouTube video product walkthroughs inside Case Study modals
+8,Phase 3,Resume,Tailored Resume & CV Modal,components/ui/ResumeModal.tsx,High,Pending,Build interactive resume viewer modal with download links for Full-Stack & AI Engineer CVs
+9,Phase 4,Projects,Replace Sample Project Screenshots,content/projects.ts & public/images/,High,Pending,Upload real project screenshots and product demo graphics for all listed projects
+10,Phase 4,Projects,Add Working Live Demo & GitHub Links,content/projects.ts,High,Pending,Update liveUrl and githubUrl with real production links or working video walkthroughs
+11,Phase 4,Projects,Quantify Case Study Metrics,content/projects.ts,High,Pending,Add authentic performance metrics (e.g. latency reduction user count time saved) to case studies
+12,Phase 4,Process,How I Work with Founders Section,components/sections/Home.tsx,Medium,Pending,Add 3-step delivery process (48h prototype 10-day MVP AI integration) & Code Ownership guarantees
+13,Phase 4,Testimonials,Replace Dummy Client Testimonials,components/sections/Home.tsx,Medium,Pending,Update sample quotes and sanket_photo.png avatars with real client/lead feedback and photos
+14,Phase 4,Blogs,Write Real Technical Case Study Blogs,content/blogs.ts,Medium,Pending,Refine blog post entries into full production technical articles on Next.js AI architecture & PostgreSQL
+15,Phase 5,UX/Mobile,Audit Mobile Touch Target Sizes,components/ai/ChatClient.tsx & app/page.tsx,Medium,Pending,Ensure all prompt chips quick buttons and mobile inputs meet minimum 44x44px touch targets
+16,Phase 5,SEO,Add OpenGraph & Meta Tags,app/layout.tsx,High,Pending,Configure og:image og:title twitter:card and JSON-LD Person schema for search engine sharing
+17,Phase 5,Hardening,API Rate-Limiting & Fallback Error UI,app/api/ai/route.ts & lib/ai/openai.ts,High,Pending,Implement request rate limiting and fallback text handling if OPENAI_API_KEY is missing or fails

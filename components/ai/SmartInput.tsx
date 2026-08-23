@@ -49,7 +49,7 @@ you are representing me as sanket gaikwad, a full-stack developer and freelancer
         return;
       }
     } catch {
-      // Not a JSON response → treat as normal message
+      // Not a JSON response -> treat as normal message
     }
 
     setAiMessage(content);
@@ -68,7 +68,7 @@ you are representing me as sanket gaikwad, a full-stack developer and freelancer
       />
       <button
         type="submit"
-        className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
+        className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 cursor-pointer"
       >
         Send
       </button>

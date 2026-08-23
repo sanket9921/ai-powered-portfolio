@@ -2,7 +2,7 @@
 
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import PortfolioIntroModal from '@/components/PortfolioIntroModal';
+import PortfolioIntroModal from '@/components/ui/PortfolioIntroModal';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
