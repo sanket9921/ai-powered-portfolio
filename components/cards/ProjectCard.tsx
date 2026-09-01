@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Slider from 'react-slick';
+import Link from 'next/link';
 import { Dialog } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { Play, ExternalLink, Cpu, CheckCircle, AlertTriangle, BarChart3, X } from 'lucide-react';
+import { Play, ExternalLink, X, ArrowRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { HiOutlineDocumentText } from 'react-icons/hi';
 import { ProjectItem } from '@/types/portfolio';
@@ -12,11 +13,11 @@ import { projectsData } from '@/content/projects';
 
 export interface ProjectCardProps {
   project: ProjectItem;
+  isOpenByDefault?: boolean;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const [isCaseStudyOpen, setIsCaseStudyOpen] = useState(false);
 
   const settings = {
     dots: true,
@@ -47,13 +48,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </Slider>
 
           {/* Play Demo Button */}
-          <button
-            onClick={() => setIsVideoOpen(true)}
-            className="absolute top-3 right-3 bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-full shadow-lg transition cursor-pointer z-10"
-            title="Watch Video Demo"
-          >
-            <Play className="w-4 h-4 fill-white" />
-          </button>
+          {project.videoUrl && (
+            <button
+              onClick={() => setIsVideoOpen(true)}
+              className="absolute top-3 right-3 bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-full shadow-lg transition cursor-pointer z-10"
+              title="Watch Video Demo"
+            >
+              <Play className="w-4 h-4 fill-white" />
+            </button>
+          )}
         </div>
 
         {/* Text Content */}
@@ -77,15 +80,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
       {/* Action Buttons */}
       <div className="pt-6 border-t border-gray-100 dark:border-gray-700/60 mt-6 flex items-center justify-between gap-2">
-        {project.caseStudy && (
-          <button
-            onClick={() => setIsCaseStudyOpen(true)}
-            className="text-xs font-semibold text-orange-600 dark:text-orange-400 inline-flex items-center gap-1.5 hover:underline cursor-pointer"
+        {project.caseStudy ? (
+          <Link
+            href={`/projects/${project.id}`}
+            className="text-xs font-bold text-orange-600 dark:text-orange-400 inline-flex items-center gap-1.5 hover:underline cursor-pointer group"
           >
             <HiOutlineDocumentText className="w-4 h-4" />
             <span>Read Case Study</span>
-          </button>
-        )}
+            <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition" />
+          </Link>
+        ) : <div />}
 
         <div className="flex items-center gap-3 ml-auto">
           {project.githubUrl && (
@@ -114,100 +118,29 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
       </div>
 
-      {/* Video Modal */}
-      <Dialog open={isVideoOpen} onClose={() => setIsVideoOpen(false)} className="relative z-50">
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="bg-white dark:bg-gray-900 p-5 rounded-2xl max-w-3xl w-full border dark:border-gray-700 shadow-2xl">
-            <div className="flex justify-between items-center mb-3">
-              <h4 className="text-lg font-bold text-gray-800 dark:text-white">{project.title} - Video Demo</h4>
-              <button
-                onClick={() => setIsVideoOpen(false)}
-                className="text-gray-500 hover:text-black dark:hover:text-white p-1 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="aspect-video rounded-xl overflow-hidden bg-black">
-              <iframe
-                src={project.videoUrl}
-                title={project.title}
-                className="w-full h-full"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              />
-            </div>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
-
-      {/* Case Study Modal */}
-      {project.caseStudy && (
-        <Dialog open={isCaseStudyOpen} onClose={() => setIsCaseStudyOpen(false)} className="relative z-50">
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-md" />
+      {/* Video Demo Modal */}
+      {project.videoUrl && (
+        <Dialog open={isVideoOpen} onClose={() => setIsVideoOpen(false)} className="relative z-50">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
           <div className="fixed inset-0 flex items-center justify-center p-4">
-            <Dialog.Panel className="bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto border dark:border-gray-700 shadow-2xl space-y-6">
-              <div className="flex justify-between items-start border-b border-gray-200 dark:border-gray-800 pb-4">
-                <div>
-                  <span className="text-xs uppercase font-bold text-orange-500 tracking-wider">Technical Case Study</span>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{project.title}</h3>
-                </div>
+            <Dialog.Panel className="bg-white dark:bg-gray-900 p-5 rounded-2xl max-w-3xl w-full border dark:border-gray-700 shadow-2xl">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="text-lg font-bold text-gray-800 dark:text-white">{project.title} - Video Demo</h4>
                 <button
-                  onClick={() => setIsCaseStudyOpen(false)}
+                  onClick={() => setIsVideoOpen(false)}
                   className="text-gray-500 hover:text-black dark:hover:text-white p-1 cursor-pointer"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
-
-              {/* Problem */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-orange-500" />
-                  <span>The Problem</span>
-                </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-                  {project.caseStudy.problem}
-                </p>
-              </div>
-
-              {/* Architecture */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-orange-500" />
-                  <span>System Architecture</span>
-                </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-                  {project.caseStudy.architecture}
-                </p>
-              </div>
-
-              {/* Challenges */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-orange-500" />
-                  <span>Technical Challenges Overcome</span>
-                </h4>
-                <ul className="list-disc list-inside space-y-1.5 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-                  {project.caseStudy.challenges.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Key Results / Metrics */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-orange-500" />
-                  <span>Key Impact & Metrics</span>
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {project.caseStudy.metrics.map((m, i) => (
-                    <div key={i} className="p-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 rounded-xl text-xs font-medium text-orange-800 dark:text-orange-300">
-                      ⚡ {m}
-                    </div>
-                  ))}
-                </div>
+              <div className="aspect-video rounded-xl overflow-hidden bg-black">
+                <iframe
+                  src={project.videoUrl}
+                  title={project.title}
+                  className="w-full h-full"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
               </div>
             </Dialog.Panel>
           </div>
@@ -217,7 +150,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   );
 };
 
-export default function ProjectsGrid() {
+export interface ProjectsGridProps {
+  initialProjectId?: string | null;
+}
+
+export default function ProjectsGrid({ initialProjectId }: ProjectsGridProps) {
   return (
     <section
       id="projects"
@@ -234,11 +171,16 @@ export default function ProjectsGrid() {
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+          {projectsData.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isOpenByDefault={initialProjectId === project.id}
+            />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

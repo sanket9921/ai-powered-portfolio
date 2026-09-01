@@ -1,7 +1,7 @@
 ID,Phase,Category,Task Name,Target File/Location,Priority,Status,Action Details
-1,Phase 1,Routing,Resume Deep-Link Hash Routing,app/page.tsx,High,Pending,Parse URL hash (/#projects/id) on load to directly open corresponding project case study modal or blog
-2,Phase 1,AI/RAG,Project & Blog RAG Knowledge Engine,app/api/ai/route.ts,High,Pending,Upgrade AI route to inject deep project specs (architecture DB choices metrics) into OpenAI context for RAG Q&A
-3,Phase 1,AI/UI,In-Modal Ask AI About This Project Button,components/cards/ProjectCard.tsx,High,Pending,Add prompt button inside Case Study modal to pre-scope AI assistant for Q&A on that exact project
+1,Phase 1,Routing,Resume Deep-Link Hash Routing,app/page.tsx,High,Completed,Parse URL hash (/#projects/id) on load to directly open corresponding project case study modal or blog
+2,Phase 1,AI/RAG,Project & Blog RAG Knowledge Engine,app/api/ai/route.ts,High,Completed,Upgrade AI route to inject deep project specs (architecture DB choices metrics) into OpenAI context for RAG Q&A
+3,Phase 1,AI/UI,In-Modal Ask AI About This Project Button,components/cards/ProjectCard.tsx,High,Completed,Add prompt button inside Case Study modal to pre-scope AI assistant for Q&A on that exact project
 4,Phase 2,Lead Gen,AI Project Scope & Cost Estimator,components/sections/Contact.tsx,High,Pending,Build interactive AI scope calculator capturing Name Company Email Phone Budget & Timeline
 5,Phase 2,Contact,Setup Contact Form API Route,app/api/contact/route.ts,High,Pending,Implement API route to send lead submissions and proposal requests via Resend/Nodemailer
 6,Phase 3,Video,Personal Video Pitch in Hero,components/sections/Home.tsx,High,Pending,Embed 60-second video introducing Sanket 10-day MVP delivery model and AI features

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { componentInfo } from '@/content/componentContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Loader2, Send, FolderGit2, User, FileText, Mail } from 'lucide-react';
@@ -9,6 +9,7 @@ export interface ChatClientProps {
   setActiveComponent: (key: string) => void;
   setAiMessage: (text: string | null) => void;
   setSummary: (text: string | null) => void;
+  onNavigateWithTarget?: (component: string, targetId?: string) => void;
 }
 
 const promptChips = [
@@ -22,6 +23,7 @@ export default function ChatClient({
   setActiveComponent,
   setAiMessage,
   setSummary,
+  onNavigateWithTarget,
 }: ChatClientProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -47,22 +49,40 @@ export default function ChatClient({
         const parsed = JSON.parse(content);
         if (parsed?.action === 'render_component') {
           const componentKey = parsed.component;
-          setActiveComponent(componentKey);
+
+          if (onNavigateWithTarget) {
+            onNavigateWithTarget(componentKey, parsed.targetId);
+          } else {
+            setActiveComponent(componentKey);
+            if (parsed.targetId && typeof window !== 'undefined') {
+              window.history.replaceState(
+                null,
+                '',
+                `/#${componentKey.toLowerCase()}/${parsed.targetId}`
+              );
+            }
+          }
+
           setAiMessage(null);
 
-          // Trigger second call for summary
-          const detail = componentInfo[componentKey] ?? '';
-          const summaryRes = await fetch('/api/summary', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userQuery: queryText, context: detail }),
-          });
+          // If summary is provided in the JSON payload, use it directly, else fetch summary
+          if (parsed.summary) {
+            setSummary(parsed.summary);
+          } else {
+            const detail = componentInfo[componentKey] ?? '';
+            const summaryRes = await fetch('/api/summary', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userQuery: queryText, context: detail }),
+            });
 
-          const summaryData = await summaryRes.json();
-          setSummary(summaryData.summary ?? null);
+            const summaryData = await summaryRes.json();
+            setSummary(summaryData.summary ?? null);
+          }
           return;
         }
-      } catch (err) {
+      } catch {
+        // Not a JSON navigation payload, render as RAG text response
         setSummary(null);
         setActiveComponent('');
         setAiMessage(content);
@@ -75,6 +95,20 @@ export default function ChatClient({
       setInput('');
     }
   };
+
+  // Listen for custom "ask-ai-query" events from modals or components
+  useEffect(() => {
+    const handleAskAiEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ query: string }>;
+      if (customEvent.detail?.query) {
+        setInput(customEvent.detail.query);
+        processQuery(customEvent.detail.query);
+      }
+    };
+
+    window.addEventListener('ask-ai-query', handleAskAiEvent);
+    return () => window.removeEventListener('ask-ai-query', handleAskAiEvent);
+  }, [isLoading]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -136,7 +170,7 @@ export default function ChatClient({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           disabled={isLoading}
-          placeholder={isLoading ? "AI is processing your request..." : "Ask AI anything about Sanket..."}
+          placeholder={isLoading ? "AI is processing your request..." : "Ask AI anything about Sanket's projects or architecture..."}
           className="flex-1 px-3 py-1.5 bg-transparent text-sm focus:outline-none text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 disabled:opacity-50"
         />
         <motion.button
@@ -162,3 +196,4 @@ export default function ChatClient({
     </motion.div>
   );
 }
+

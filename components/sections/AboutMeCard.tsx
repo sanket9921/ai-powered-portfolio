@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCode, FaGraduationCap, FaBriefcase, FaTools, FaLightbulb, FaRocket, FaRobot, FaServer, FaBook, FaBrain, FaLock, FaUsers, FaArrowRight, FaEye, FaShieldAlt, FaCrosshairs, FaHandsHelping, FaChessKing, FaCertificate, FaUniversity, FaCrown, FaAws, FaGithub, FaLinkedin, FaTwitter, FaChartLine, FaPlay } from "react-icons/fa";
-import CursorBlob from "@/components/ui/CursorBlob";
 import {
   LayoutDashboard,
   Server,
@@ -185,26 +184,22 @@ export default function AboutMeCard() {
         <section id="hero" className="relative container mx-auto h-auto md:h-screen bg-none pt-20 md:pt-0">
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 h-full items-center relative z-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ staggerChildren: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
           >
             {/* Left Section */}
             <motion.div
               className="flex flex-col justify-center p-4 md:p-8"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
             >
               {/* Floating Headline */}
               <motion.div
-                className=""
-                initial={{ opacity: 0, y: -30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
               >
                 <div className="container mx-auto">
                   <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold text-left text-gray-800 dark:text-white">
@@ -216,10 +211,9 @@ export default function AboutMeCard() {
               {/* Intro Text */}
               <motion.p
                 className="text-base sm:text-lg md:text-xl text-gray-700 text-center md:text-left leading-relaxed z-20 mt-4"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                viewport={{ once: true }}
               >
                 Hi, I'm Sanket! A passionate developer and AI enthusiast with a knack for creating innovative solutions that blend technology and creativity. Welcome to my portfolio!
               </motion.p>
@@ -227,10 +221,9 @@ export default function AboutMeCard() {
               {/* Social Icons */}
               <motion.div
                 className="flex justify-center md:justify-start mt-6 space-x-4 z-20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
               >
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <FaGithub className="text-2xl md:text-3xl text-gray-800 hover:text-gray-600" />
@@ -247,10 +240,9 @@ export default function AboutMeCard() {
             {/* Right Section - Hidden on small screens, shown on medium and up */}
             <motion.div
               className="relative hidden md:flex justify-end items-end mt-[50px] mr-10 z-20"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
             >
               {/* Background Cards */}
               <div
@@ -263,9 +255,8 @@ export default function AboutMeCard() {
               <motion.div
                 className="relative w-[500px] md:w-[600px] lg:w-[700px] xl:w-[800px] h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] z-30"
                 initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
               >
                 <img
                   src="/sanket_photo2.png"
@@ -277,9 +268,8 @@ export default function AboutMeCard() {
                 <motion.div
                   className="absolute left-[-75px] bottom-1/2 z-40"
                   initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  viewport={{ once: true }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   <button
                     onClick={() => alert('Play intro video')}

@@ -6,14 +6,14 @@ Track the step-by-step implementation of real content, resume deep-linking, proj
 
 ## 🔗 Phase 1: Resume Deep-Linking & Project RAG Q&A Engine (High Priority)
 
-- [ ] **Task 1.1: Resume Deep-Link Hash Routing**
-  - **File**: [`app/page.tsx`](file:///d:/Learning/Projects/ai-powered-portfolio/app/page.tsx)
-  - **Details**: Parse URL hash on load (e.g. `/#projects/mern-job-portal` or `/#blogs/nextjs15-ai-architecture`) to directly switch to the corresponding section and open the target Case Study modal or Blog reader.
-- [ ] **Task 1.2: Project & Blog RAG Q&A Knowledge Engine**
+- [x] **Task 1.1: Resume Deep-Link Hash Routing**
+  - **File**: [`app/page.tsx`](file:///home/sanket/Desktop/portfolio-ai-poc/app/page.tsx)
+  - **Details**: Parse URL hash on load (e.g. `/#projects/mock-test-engine` or `/#blogs/building-ai-portfolio-nextjs15`) to directly switch to the corresponding section and open the target Case Study modal or Blog reader.
+- [x] **Task 1.2: Project & Blog RAG Q&A Knowledge Engine**
   - **File**: `app/api/ai/route.ts`
   - **Details**: Upgrade AI route handler to perform RAG over project specifications in `content/projects.ts` and `content/blogs.ts`. When recruiters ask questions like *"How did Sanket optimize PostgreSQL queries in Job Portal?"*, feed full technical context (architecture, DB choices, latency hacks, metrics) to OpenAI.
-- [ ] **Task 1.3: In-Modal "Ask AI About This Project" Chip**
-  - **File**: [`components/cards/ProjectCard.tsx`](file:///d:/Learning/Projects/ai-powered-portfolio/components/cards/ProjectCard.tsx)
+- [x] **Task 1.3: In-Modal "Ask AI About This Project" Chip**
+  - **File**: [`components/cards/ProjectCard.tsx`](file:///home/sanket/Desktop/portfolio-ai-poc/components/cards/ProjectCard.tsx)
   - **Details**: Add a quick prompt button inside Case Study modals: `✨ Ask AI About This Project` to pre-scope the assistant for project Q&A.
 
 ---

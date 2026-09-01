@@ -6,6 +6,7 @@ export interface CaseStudyDetails {
 }
 
 export interface ProjectItem {
+  id: string;
   title: string;
   desc: string;
   tech: string[];
@@ -16,6 +17,15 @@ export interface ProjectItem {
   caseStudy?: CaseStudyDetails;
 }
 
+export interface ProjectsProps {
+  initialProjectId?: string | null;
+}
+
+export interface BlogsProps {
+  initialBlogId?: string | null;
+}
+
 export interface ComponentContextMap {
   [key: string]: string;
 }
+

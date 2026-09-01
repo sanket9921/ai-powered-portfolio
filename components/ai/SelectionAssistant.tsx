@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, X, Loader2, Send } from 'lucide-react';
 
@@ -15,26 +15,6 @@ export default function SelectionAssistant({ activeComponent }: SelectionAssista
   const [userQuery, setUserQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-
-  // Track sections that have already displayed the hint toast once during this session
-  const seenSectionsRef = useRef<Set<string>>(new Set());
-
-  // Show hint toast ONLY ONCE per unique section/page visit
-  useEffect(() => {
-    if (!activeComponent) return;
-
-    if (!seenSectionsRef.current.has(activeComponent)) {
-      seenSectionsRef.current.add(activeComponent);
-      setShowToast(true);
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 4500);
-      return () => clearTimeout(timer);
-    } else {
-      setShowToast(false);
-    }
-  }, [activeComponent]);
 
   useEffect(() => {
     const handleMouseUp = (e: MouseEvent) => {
@@ -103,33 +83,6 @@ export default function SelectionAssistant({ activeComponent }: SelectionAssista
 
   return (
     <>
-      {/* Top-Right Guidance Hint Toast (Displays ONLY ONCE per unique section visit) */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div
-            initial={{ opacity: 0, y: -25, x: 25, scale: 0.85 }}
-            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.85 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-            className="fixed top-20 right-4 sm:right-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-2 border-orange-500/70 shadow-2xl shadow-orange-500/10 text-xs text-gray-800 dark:text-white"
-          >
-            <div className="p-1.5 rounded-xl bg-orange-500 text-white shadow-md">
-              <Sparkles className="w-4 h-4 fill-white animate-pulse" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-orange-600 dark:text-orange-400">AI Assistant Tip</span>
-              <span className="text-gray-600 dark:text-gray-300 font-medium">Highlight any text to Ask AI</span>
-            </div>
-            <button
-              onClick={() => setShowToast(false)}
-              className="text-gray-400 hover:text-black dark:hover:text-white ml-2 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Floating Selection AI Assistant Popover */}
       {isOpen && position && (
         <AnimatePresence>

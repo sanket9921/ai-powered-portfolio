@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { componentRegistry } from '@/components/componentRegistry';
 import ChatClient from '@/components/ai/ChatClient';
 import AIResponseCard from '@/components/ai/AIResponseCard';
@@ -15,19 +15,104 @@ const menuItems = ['Home', 'AboutMeCard', 'Projects', 'Blogs', 'Contact'];
 
 export default function Page() {
   const [activeComponent, setActiveComponent] = useState<string>('Home');
+  const [initialProjectId, setInitialProjectId] = useState<string | null>(null);
+  const [initialBlogId, setInitialBlogId] = useState<string | null>(null);
   const [aiMessage, setAiMessage] = useState<string | null>(null);
   const [summary, setSummary] = useState<string | null>(null);
   const [showSplash, setShowSplash] = useState(true);
 
-  const ActiveComponent = componentRegistry[activeComponent] || (() => <p>Component not found</p>);
+  const parseHash = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    const rawHash = window.location.hash.replace(/^#\/?/, '').trim();
+    if (!rawHash) return;
 
-  // Hide splash after delay
+    const parts = rawHash.split('/').filter(Boolean);
+    const mainSection = parts[0]?.toLowerCase();
+    const targetId = parts[1] || null;
+
+    if (mainSection === 'projects') {
+      if (targetId) {
+        window.location.replace(`/projects/${targetId}`);
+        return;
+      }
+      setActiveComponent('Projects');
+      setInitialProjectId(null);
+      setInitialBlogId(null);
+      setAiMessage(null);
+    } else if (mainSection === 'blogs' || mainSection === 'blog') {
+      if (targetId) {
+        window.location.replace(`/blogs/${targetId}`);
+        return;
+      }
+      setActiveComponent('Blogs');
+      setInitialBlogId(null);
+      setInitialProjectId(null);
+      setAiMessage(null);
+    } else if (
+      mainSection === 'about' ||
+      mainSection === 'aboutme' ||
+      mainSection === 'aboutmecard'
+    ) {
+      setActiveComponent('AboutMeCard');
+      setInitialProjectId(null);
+      setInitialBlogId(null);
+      setAiMessage(null);
+    } else if (mainSection === 'contact') {
+      setActiveComponent('Contact');
+      setInitialProjectId(null);
+      setInitialBlogId(null);
+      setAiMessage(null);
+    } else if (mainSection === 'home') {
+      setActiveComponent('Home');
+      setInitialProjectId(null);
+      setInitialBlogId(null);
+      setAiMessage(null);
+    }
+  }, []);
+
+  // Listen to hash change and parse initial hash
+  useEffect(() => {
+    parseHash();
+    window.addEventListener('hashchange', parseHash);
+    return () => window.removeEventListener('hashchange', parseHash);
+  }, [parseHash]);
+
+  // Hide splash after intro duration on page visit/refresh
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1800);
+    }, 1600);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleNavigate = (componentName: string, targetId?: string) => {
+    setActiveComponent(componentName);
+    setAiMessage(null);
+
+    if (componentName === 'Projects') {
+      setInitialProjectId(targetId || null);
+      setInitialBlogId(null);
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', targetId ? `/#projects/${targetId}` : '/#projects');
+      }
+    } else if (componentName === 'Blogs') {
+      setInitialBlogId(targetId || null);
+      setInitialProjectId(null);
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', targetId ? `/#blogs/${targetId}` : '/#blogs');
+      }
+    } else {
+      setInitialProjectId(null);
+      setInitialBlogId(null);
+      if (typeof window !== 'undefined') {
+        const hashName = componentName === 'AboutMeCard' ? 'about' : componentName.toLowerCase();
+        window.history.replaceState(null, '', `/#${hashName}`);
+      }
+    }
+  };
+
+  const ActiveComponent =
+    componentRegistry[activeComponent] || (() => <p className="p-8 text-center">Section not found</p>);
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-black text-black dark:text-white relative overflow-x-hidden">
@@ -35,7 +120,9 @@ export default function Page() {
       {!showSplash && <SelectionAssistant activeComponent={activeComponent} />}
 
       {/* Splash Screen */}
-      {showSplash && <SplashScreen />}
+      <AnimatePresence>
+        {showSplash && <SplashScreen key="portfolio-splash" />}
+      </AnimatePresence>
 
       {/* Dynamic Summary Card (Appears when AI responds) */}
       <AnimatePresence>
@@ -59,7 +146,14 @@ export default function Page() {
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
               >
-                {aiMessage ? <AIResponseCard message={aiMessage} /> : <ActiveComponent />}
+                {aiMessage ? (
+                  <AIResponseCard message={aiMessage} onClose={() => setAiMessage(null)} />
+                ) : (
+                  <ActiveComponent
+                    initialProjectId={initialProjectId}
+                    initialBlogId={initialBlogId}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -80,14 +174,10 @@ export default function Page() {
                 key={item}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => {
-                  setActiveComponent(item);
-                  setAiMessage(null);
-                  setSummary(null);
-                }}
+                onClick={() => handleNavigate(item)}
                 className={`px-4 py-1.5 text-xs sm:text-sm font-medium border rounded-xl backdrop-blur-lg shadow-md transition cursor-pointer ${
-                  activeComponent === item
-                    ? 'bg-orange-500 text-white border-orange-500'
+                  activeComponent === item && !aiMessage
+                    ? 'bg-orange-500 text-white border-orange-500 shadow-orange-500/30'
                     : 'bg-white/90 dark:bg-gray-900/90 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10'
                 }`}
               >
@@ -104,8 +194,10 @@ export default function Page() {
           setActiveComponent={setActiveComponent}
           setAiMessage={setAiMessage}
           setSummary={setSummary}
+          onNavigateWithTarget={handleNavigate}
         />
       )}
     </main>
   );
 }
+

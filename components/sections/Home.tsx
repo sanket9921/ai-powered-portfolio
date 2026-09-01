@@ -189,8 +189,6 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-      <CursorBlob />
-
       {/* 🚩 Left Side Dot Navigation */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
         {sections.map((sectionId) => (
@@ -258,18 +256,16 @@ export default function Home() {
 
         <motion.div
           className="w-full max-w-6xl flex flex-col-reverse md:flex-row items-center z-10 pt-16 md:pt-0"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ staggerChildren: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
         >
           {/* Text Section */}
           <motion.div
             className="flex-1 text-center md:text-left mt-8 md:mt-0"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
           >
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-800 dark:text-white">
               Hi, I'm
@@ -288,20 +284,18 @@ export default function Home() {
             {/* Social Icons */}
             <motion.div
               className="flex gap-4 md:gap-6 justify-center md:justify-start text-xl md:text-2xl mt-4 md:mt-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
             >
             </motion.div>
 
             {/* Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-start"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
               <a
                 href="/Sanket_Gaikwad_Resume.pdf"
@@ -322,10 +316,9 @@ export default function Home() {
           {/* Image Section */}
           <motion.div
             className="relative flex-1 flex justify-center md:justify-end items-center mt-8 md:mt-0 w-full"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
           >
             <div
               className="absolute w-[280px] h-[340px] md:w-[380px] md:h-[465px] rotate-[8deg] z-0 shadow-xl"

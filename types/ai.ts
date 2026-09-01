@@ -3,6 +3,7 @@ export type ActionType = 'render_component';
 export interface AIActionPayload {
   action: ActionType;
   component: string;
+  targetId?: string;
   summary?: string;
   props?: Record<string, unknown>;
 }

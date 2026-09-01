@@ -2,6 +2,7 @@ import { ProjectItem } from '@/types/portfolio';
 
 export const projectsData: ProjectItem[] = [
   {
+    id: 'mock-test-engine',
     title: 'Mock Test Engine Platform',
     desc: 'Built for coaching institutes to manage online mock tests with auto-evaluation, real-time analytics, and student scorecards.',
     tech: ['React', 'Node.js', 'MongoDB', 'Redis'],
@@ -23,6 +24,7 @@ export const projectsData: ProjectItem[] = [
     },
   },
   {
+    id: 'job-portal-mvp',
     title: 'Job Portal MVP for Startups',
     desc: 'Role-based MERN job board for TPO admins, startup recruiters, and student applicants with email notification triggers.',
     tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'PostgreSQL'],
@@ -44,6 +46,7 @@ export const projectsData: ProjectItem[] = [
     },
   },
   {
+    id: 'ai-resume-analyzer',
     title: 'AI Resume & CV Analyzer',
     desc: 'Upload resumes (PDF/Docx) and get instant GPT-powered feedback on structure, ATS keywords, impact phrasing, and formatting.',
     tech: ['React', 'Express', 'OpenAI API', 'Tailwind CSS'],
